@@ -3,6 +3,7 @@ import openpyxl as op
 from platform import system as psys
 from os import system as osys,getcwd,path,remove
 import configparser as cp
+import datetime as dt
 
 ps='\\' if psys()=='Windows' else '/'
 
@@ -15,6 +16,7 @@ class struct:
         self.templateName=c['DEFAULT']['templateName']
         self.templateSheet=c['DEFAULT']['templateSheet']
         self.correct=c['DEFAULT']['correct']
+        self.title=c['DEFAULT']['title']
 
 err=list()
 
@@ -30,6 +32,7 @@ def func():
     wb.close()
     sid=dict()
     i='A'
+    ws['A1']=c.title.format(month=dt.datetime.now().strftime("%m"),day=dt.datetime.now().strftime("%d"))
     for cell in ws[2]:
         sid[cell.value]=i
         i=chr(ord(i)+1)
